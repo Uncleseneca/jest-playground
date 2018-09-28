@@ -1,22 +1,12 @@
-class Student {
-  constructor () {
-    this.baseUrl = 'https://jsonplaceholder.typicode.com/users/'
+import { validateStudent } from './student-utils'
+
+export default function createStudent (id, name, fetchStudent) {
+  const student = { id, name }
+  if (!validateStudent(student)) {
+    throw new Error("Invalid student: it doesn't have an id")
   }
 
-  create (id, name) {
-    if (!this.validate(id)) {
-      throw new Error('invalid student: it doesnt have an id')
-    }
-    return { id, name }
-  }
+  student.fetch = () => fetchStudent(student.id)
 
-  validate (id) {
-    return Boolean(id > 0)
-  }
-
-  fetch (id) {
-    return fetch(`${this.baseUrl}${id}`).then(student => student.json())
-  }
+  return student
 }
-
-export default new Student()
