@@ -1,5 +1,5 @@
-import { validateStudent } from './student-utils'
-import studentService from './student-service'
+import { validateStudent } from './studentUtils'
+import studentService from './studentService'
 
 export default function createStudent (id, name) {
   const student = { id, name }
@@ -8,6 +8,5 @@ export default function createStudent (id, name) {
   }
 
   student.fetch = () => studentService.get(student.id)
-
   return student
 }
