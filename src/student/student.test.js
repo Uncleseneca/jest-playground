@@ -1,5 +1,8 @@
 import createStudent from './student'
 import * as utils from './student-utils'
+jest.mock('./student-service.js', () => ({
+  get: () => Promise.resolve({ username: 'Bret' })
+}))
 
 describe('Student', () => {
   const spy = jest.spyOn(utils, 'validateStudent')
@@ -31,12 +34,9 @@ describe('Student', () => {
 })
 
 describe('student.fetch', () => {
-  const fetchStudent = jest.fn(() => Promise.resolve({ username: 'Bret' }))
-
   it('should fetch a student with id', async () => {
-    const student = createStudent(1, '', fetchStudent)
+    const student = createStudent(1, '')
     const data = await student.fetch()
     expect(data.username).toBe('Bret')
-    expect(fetchStudent).toBeCalledWith(1)
   })
 })
