@@ -1,8 +1,6 @@
 import createStudent from './student'
 import * as utils from './student-utils'
-jest.mock('./student-service.js', () => ({
-  get: () => Promise.resolve({ username: 'Bret' })
-}))
+jest.mock('./student-service.js')
 
 describe('Student', () => {
   const spy = jest.spyOn(utils, 'validateStudent')
